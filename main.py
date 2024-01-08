@@ -39,11 +39,12 @@ def save_file(window, text_edit):
 def main():
     window = tk.Tk()
     window.title("Text Editor")
-    window.rowconfigure(1, minsize=400)
-    window.columnconfigure(0, minsize=500)
+    window.rowconfigure(1, weight=1)
+    window.columnconfigure(0, weight=1)
 
     top_frame = tk.Frame(window, relief=tk.RAISED, bd=2)
     top_frame.grid(row=0, column=0, sticky="ew")
+    window.rowconfigure(0, weight=0)
 
     save_button = tk.Button(top_frame, text="Save", command=lambda: save_file(window, text_edit))
     open_button = tk.Button(top_frame, text="Open", command=lambda: open_file(window, text_edit))
@@ -51,7 +52,7 @@ def main():
     open_button.pack(side=tk.LEFT, padx=5, pady=5)
 
     text_edit = tk.Text(window, font=("Arial", 12))
-    text_edit.grid(row=1, column=0)
+    text_edit.grid(row=1, column=0, sticky="nsew")
 
     window.bind("<Control-s>", lambda x: save_file(window, text_edit))
     window.bind("<Control-o>", lambda x: open_file(window, text_edit))

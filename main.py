@@ -36,6 +36,10 @@ def save_file(window, text_edit):
     window.title(f"Saved: {filepath}")
 
 
+def change_font_size(text_edit, size):
+    text_edit.config(font=("Arial", size))
+
+
 def main():
     window = tk.Tk()
     window.title("Text Editor")
@@ -50,6 +54,12 @@ def main():
     open_button = tk.Button(top_frame, text="Open", command=lambda: open_file(window, text_edit))
     save_button.pack(side=tk.LEFT, padx=5, pady=5)
     open_button.pack(side=tk.LEFT, padx=5, pady=5)
+
+    font_sizes = [8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32]
+    font_size = tk.StringVar()
+    font_size.set("Font Size")
+    font_size_dropdown = tk.OptionMenu(top_frame, font_size, *font_sizes)
+    font_size_dropdown.pack(side=tk.LEFT, padx=5, pady=5)
 
     text_edit = tk.Text(window, font=("Arial", 12))
     text_edit.grid(row=1, column=0, sticky="nsew")

@@ -45,6 +45,8 @@ def main():
     window.title("Text Editor")
     window.rowconfigure(1, weight=1)
     window.columnconfigure(0, weight=1)
+    window.minsize(500, 400)
+    window.geometry("500x400")
 
     top_frame = tk.Frame(window, relief=tk.RAISED, bd=2)
     top_frame.grid(row=0, column=0, sticky="ew")
@@ -58,11 +60,15 @@ def main():
     font_sizes = [8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32]
     font_size = tk.StringVar()
     font_size.set("Font Size")
-    font_size_dropdown = tk.OptionMenu(top_frame, font_size, *font_sizes)
+    font_size_dropdown = tk.OptionMenu(top_frame, font_size, *font_sizes, command=lambda x: change_font_size(text_edit, int(x)))
     font_size_dropdown.pack(side=tk.LEFT, padx=5, pady=5)
 
-    text_edit = tk.Text(window, font=("Arial", 12))
+    text_edit = tk.Text(window, font="Arial", width=80, height=24)
     text_edit.grid(row=1, column=0, sticky="nsew")
+
+    scrollbar = tk.Scrollbar(window, command=text_edit.yview)
+    scrollbar.grid(row=1, column=1, sticky="nsew")
+    text_edit.config(yscrollcommand=scrollbar.set)
 
     window.bind("<Control-s>", lambda x: save_file(window, text_edit))
     window.bind("<Control-o>", lambda x: open_file(window, text_edit))
